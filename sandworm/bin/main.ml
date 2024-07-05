@@ -1,7 +1,7 @@
 open Sandworm
 
 let s3 = "scaleway:dune-binary-distribution"
-let artifacts = "../artifacts"
+let artifacts = "./artifacts"
 let file = "metadata.json"
 let config_path = "./rclone.conf"
 
