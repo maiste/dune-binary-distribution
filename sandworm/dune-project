@@ -22,6 +22,7 @@
           ppx_deriving_yojson
           tyxml
           ptime
+          fpath
           (ocaml-lsp-server :with-dev-setup)
           (ocamlformat :with-dev-setup)))
 
