@@ -2,8 +2,11 @@ name: Binaries
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 1 * * *' # Triggers the build at 1:00 UTC time
+  push:
+    branches:
+    - "feat/verify-provenance"
+  # schedule:
+  #   - cron: '0 1 * * *' # Triggers the build at 1:00 UTC time
 
 jobs:
   binary:
