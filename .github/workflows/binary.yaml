@@ -37,9 +37,9 @@ jobs:
           ref: main # At some point we might need to change it to point to a developer preview branch
           fetch-depth: 0 # for git describe
       - uses: cachix/install-nix-action@v22
-      - run: echo "(version $(git describe --always --dirty --abbrev=7))" >> "$GITHUB_OUTPUT"
+      - run: echo "(version $(git describe --always --dirty --abbrev=7))" >> dune-project
       - id: git-describe
-        run: echo "hash=$(git describe --always --dirty --abbrev=7)" >> dune-project
+        run: echo "hash=$(git describe --always --dirty --abbrev=7)" >> "$GITHUB_OUTPUT"
       - run: nix build ${{ matrix.installable }}
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
