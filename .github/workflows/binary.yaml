@@ -50,7 +50,7 @@ jobs:
           subject-path: 'result/bin/dune'
           show-summary: false
       - name: Move certificate to result
-        run: ls -ld ${{ steps.certificate.outputs.bundle-path }} && mv ${{ steps.certificate.outputs.bundle-path }} ./result/bin/
+        run: ls -ld ${{ steps.certificate.outputs.bundle-path }} && cp ${{ steps.certificate.outputs.bundle-path }} result/bin/
       - uses: actions/upload-artifact@v4
         with:
           path: result/bin/*
