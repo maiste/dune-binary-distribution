@@ -31,7 +31,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     outputs:
-      git-describe: ${{ steps.git-describe.outputs.hash }}
+      git-commit: ${{ steps.git-commit.outputs.hash }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,8 +40,8 @@ jobs:
           fetch-depth: 0 # for git describe
       - uses: cachix/install-nix-action@v22
       - run: echo "(version $(git describe --always --dirty --abbrev=7))" >> dune-project
-      - id: git-describe
-        run: echo "hash=$(git describe --always --dirty --abbrev=7)" >> "$GITHUB_OUTPUT"
+      - id: git-commit
+        run: echo "hash=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - run: nix build ${{ matrix.installable }}
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1
@@ -97,7 +97,7 @@ jobs:
         run: mv "/home/runner/artifacts" "."
 
       - name: Get git describe from previous step
-        run: echo "${{ needs.binary.outputs.git-describe }}"
+        run: echo "${{ needs.binary.outputs.git-commit }}"
 
       # - name: Export Rclone configuration
       #   run: echo "${{ secrets.RCLONE_CONF }}" >> rclone.conf
