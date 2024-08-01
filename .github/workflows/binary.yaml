@@ -49,11 +49,15 @@ jobs:
         with:
           subject-path: 'result/bin/dune'
           show-summary: false
-      - name: Move certificate to result
-        run: ls -ld  result/bin/ && cat ${{ steps.certificate.outputs.bundle-path }} >> result/bin/attestation.jsonl
+      - name: Extract artifact and attestation
+        run: |
+          mkdir -p ~/build/
+          cp ${{ steps.certificate.outputs.bundle-path }} ~/build/
+          cp result/bin/dune ~/build
+
       - uses: actions/upload-artifact@v4
         with:
-          path: result/bin/*
+          path: build/*
           name: ${{ matrix.name }}
 
   deploy-s3:
