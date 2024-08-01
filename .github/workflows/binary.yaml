@@ -44,9 +44,13 @@ jobs:
         run: echo "hash=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - run: nix build ${{ matrix.installable }}
       - name: Generate artifact attestation
+        id: certificate
         uses: actions/attest-build-provenance@v1
         with:
           subject-path: 'result/bin/dune'
+          show-summary: false
+      - name: Echo path
+        run: echo ${{ steps.certificate.outputs.bundle-path }}
       - uses: actions/upload-artifact@v4
         with:
           path: result/bin/dune
@@ -91,11 +95,11 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          path: ~/artifacts
+          path: /home/runner/artifacts
 
-      - name: Move artifacts to scope
-        run: mv "/home/runner/artifacts" "."
-
+      # - name: Move artifacts to scope
+      #   run: mv "/home/runner/artifacts" "."
+      #
       - name: Get git describe from previous step
         run: echo "${{ needs.binary.outputs.git-commit }}"
 
