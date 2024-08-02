@@ -109,9 +109,6 @@ jobs:
       - name: Move artifacts to scope
         run: mv "/home/runner/artifacts" "."
 
-      - name: List artifacts
-        run: ls -R /home/runner/artifacts
-
       - name: Export Rclone configuration
         run: echo "${{ secrets.RCLONE_CONF }}" >> rclone.conf
 
